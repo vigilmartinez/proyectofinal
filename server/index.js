@@ -1,6 +1,7 @@
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require("bcrypt");
+const ObjectID = require('mongodb').ObjectID
 
 const app = express();
 let db;
@@ -64,19 +65,38 @@ app.post("/login", (req, res) => {
 
 
 app.get("/shop", (req, res) => {
-    db.collection("shopItems")
-})
+	db.collection("shopItems").find().toArray(function(err, datos) {
+		if(err!=null) {
+			res.send(err);
+		} else {
+			res.send(datos);
+		}
+	});
+});
+
+app.get("/shop/:id", (req, res) => {
+    let itemId = ObjectID(req.params.id);
+	db.collection("shopItems").find({_id : itemId }).toArray(function(err, datos) {
+		if(err!=null) {
+			res.send(err);
+		} else {
+			res.send(datos);
+		}
+	})
+});
+
 
 app.post("/shop", (req, res) => {
     const productName = req.body.productName;
     const productDescription = req.body.productDescription;
     const productPrize = req.body.productPrize;
     const productImg = req.body.productImg;
+
     db.collection("shopItems").insertOne(
         { productName: productName, productDescription: productDescription, productPrize: productPrize, productImg: productImg },
         (err, info) => {
             if (err != null) {
-                res.send({ err, message: "Unable to Register" })
+                res.send({ err, message: "Unable to Save" })
             } else {
                 res.send({ message: "Saved Correctly" })
             }

@@ -2,6 +2,35 @@
   text-align: center;
 }
 
+.linkNoDecoration {
+  color: black;
+  text-decoration: none;
+}
+
 .Header {
+  text-decoration: none;
   background-color: #403638;
+}
+
+.Footer {
+  background-color: #403638;
+}
+
+.Login {
+  display: flex;
+  text-align: center;
+  background-color: #BFB8AA;
+}
+
+.Register {
+  width: 20%;
+}
+
+.Shop {
+  background-color: #736A62;
+}
+
+.shopCards {
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -1,14 +1,17 @@
 const HomeBody = ({ username, isLoggedIn }) => {
     if (isLoggedIn) {
         return (
-            <div>
+            <div className="Home">
                 <h1>Home Body</h1>
-                <p>Henlo</p>
+                <p>Henlo {username.username}</p>
             </div>
         )
     } else {
         return (
-            <h1>Home Body</h1>
+            <div className="Home">
+                <h1>Home Body</h1>
+            </div>
+
         )
     }
 

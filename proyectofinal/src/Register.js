@@ -12,7 +12,7 @@ const Register = ({ register, isLoggedIn }) => {
   }
 
   return (
-    <div>
+    <div className="Register">
       <Form>
         <Form.Group controlId="formBasicText">
           <Form.Label>Username</Form.Label>
@@ -23,9 +23,9 @@ const Register = ({ register, isLoggedIn }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
         </Form.Group>
-        <Button variant="dark" size="sm" onClick={() => { register(username, password) }}>
-          Submit
-        </Button>
+        <Button variant="dark" size="sm" onClick={() => { register(username, password) }}>Submit</Button>
+
+
       </Form>
     </div >
   )

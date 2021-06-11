@@ -7,6 +7,8 @@ import Header from "./Header"
 import Footer from "./Footer"
 import HomeBody from "./HomeBody"
 import ShopBody from "./ShopBody"
+import ShopItemBody from "./ShopItemBody"
+import CartBody from "./CartBody"
 import PlacestogoBody from "./PlacestogoBody"
 import Register from "./Register"
 
@@ -25,7 +27,7 @@ function App() {
       })
         .then((res) => res.json())
         .then((res) => {
-          setUser(res.arrayUser)
+          setUser(res.username)
           setLoggedIn(true)
         })
     }
@@ -40,11 +42,10 @@ function App() {
         },
         body: JSON.stringify({ username, password })
       })
-      .then((res) => res.json())
-      .then((res) => {
-        setUser(username)
-        setLoggedIn(true)
-      })
+        .then((res) => res.json())
+        .then((res) => {
+          login(username, password)
+        })
     }
   }
 
@@ -53,9 +54,9 @@ function App() {
     <>
       <BrowserRouter>
 
-        <Header isLoggedIn={isLoggedIn} />
-
         <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} />
+
+        <Header isLoggedIn={isLoggedIn} />
 
         <Route exact path="/home">
           <HomeBody isLoggedIn={isLoggedIn} username={user} />
@@ -63,6 +64,13 @@ function App() {
 
         <Route exact path="/shop">
           <ShopBody isLoggedIn={isLoggedIn} />
+        </Route>
+        <Route exact path="/shop/:id">
+          <ShopItemBody isLoggedIn={isLoggedIn} />
+        </Route>
+
+        <Route exact path="/cart">
+          <CartBody isLoggedIn={isLoggedIn} />
         </Route>
 
         <Route exact path="/placestogo">

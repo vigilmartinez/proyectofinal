@@ -4,20 +4,20 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <Container fluid class="Header">
+    <Container fluid className="Header">
       <Row>
         <Col sm={2}>
-          <Link to="/home">
+          <Link to="/home" >
             <h2>Home</h2>
           </Link>
         </Col>
         <Col sm={2}>
-          <Link to="/shop">
+          <Link to="/shop" >
             <h2>Shop</h2>
           </Link>
         </Col>
         <Col sm={2}>
-          <Link to="/placestogo">
+          <Link to="/placestogo" >
             <h2>Places to go</h2>
           </Link>
         </Col>

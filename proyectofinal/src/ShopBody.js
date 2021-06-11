@@ -1,26 +1,47 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Link } from "react"
+
+import { Card } from "react-bootstrap"
+//<Link to={`/shop/${item._id}`}>{item.productName}</Link>
 
 const ShopBody = () => {
     const [shopItems, setShopItems] = useState([])
+
     useEffect(() => {
         fetch("/shop")
             .then((res) => res.json())
             .then((res) => {
-                setShopItems(res.shopItems)
+                console.log(res)
+                setShopItems(res)
             })
     }, [])
 
     const showShopItems = shopItems.map((item) => {
+        console.log(item._id)
         return (
             <div>
-                <h1>{item.productName}</h1>
-                <p>{item.productDescription}</p>
-                <img src={item.productImg} alt=""/>
-                <p>{item.productPrize}</p>
+
+                <Card style={{ width: '18rem' }} >
+                    <Card.Body>
+                        <Card.Title>
+                            {item.productName}
+                        </Card.Title>
+                    </Card.Body>
+                    <Card.Img variant="top" src={item.productImg} width="18rem" />
+                </Card>
+
             </div>
         )
     })
-    return showShopItems
+    return (
+        <div className="Shop">
+            <div>
+                <h1>Shop</h1>
+            </div>
+            <div className="shopCards">
+                {showShopItems}
+            </div>
+        </div>
+    )
 }
 
 export default ShopBody;
