@@ -1,6 +1,7 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom"
+
 
 import Login from "./Login"
 import Header from "./Header"
@@ -13,8 +14,10 @@ import PlacestogoBody from "./PlacestogoBody"
 import Register from "./Register"
 
 function App() {
-  const [user, setUser] = useState(null)
-  const [isLoggedIn, setLoggedIn] = useState(false)
+  //--------Login & Register--------
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [mensaje, setMensaje] = useState("");
 
   const login = (username, password) => {
     if (username !== "") {
@@ -27,8 +30,12 @@ function App() {
       })
         .then((res) => res.json())
         .then((res) => {
-          setUser(res.username)
-          setLoggedIn(true)
+          if (res.error === false) {
+            setUser(res.username)
+            setLoggedIn(true)
+          } else {
+            setMensaje(res.message)
+          }
         })
     }
   }
@@ -44,17 +51,70 @@ function App() {
       })
         .then((res) => res.json())
         .then((res) => {
+          console.log(res.message)
           login(username, password)
         })
     }
   }
 
 
+
+  //--------Shop--------
+  const [shopItems, setShopItems] = useState([])
+
+  useEffect(() => {
+    fetch("/shop")
+      .then((res) => res.json())
+      .then((res) => {
+        setShopItems(res)
+      })
+  }, [])
+
+
+
+  //--------Cart--------
+  const [cart, setCart] = useState([])
+
+  const addtocart = (item) => {
+    setCart([...cart, item[0]]);
+  }
+
+  const buy = (cart) => {
+    fetch("/sales", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ cart })
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        setCart([])
+      })
+  }
+
+
+
+
+  //--------Places--------
+  const [places, setPlaces] = useState([])
+
+  useEffect(() => {
+    fetch("/placestogo")
+      .then((res) => res.json())
+      .then((res) => {
+        setPlaces(res)
+      })
+  }, [])
+
+
+
   return (
     <>
       <BrowserRouter>
 
-        <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} />
+        <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} mensaje={mensaje} />
 
         <Header isLoggedIn={isLoggedIn} />
 
@@ -63,18 +123,18 @@ function App() {
         </Route>
 
         <Route exact path="/shop">
-          <ShopBody isLoggedIn={isLoggedIn} />
+          <ShopBody isLoggedIn={isLoggedIn} shopItems={shopItems} />
         </Route>
-        <Route exact path="/shop/:id">
-          <ShopItemBody isLoggedIn={isLoggedIn} />
+        <Route exact path="/shop/:id" >
+          <ShopItemBody isLoggedIn={isLoggedIn} shopItems={shopItems} addtocart={addtocart} />
         </Route>
 
         <Route exact path="/cart">
-          <CartBody isLoggedIn={isLoggedIn} />
+          <CartBody isLoggedIn={isLoggedIn} cart={cart} buy={buy} />
         </Route>
 
         <Route exact path="/placestogo">
-          <PlacestogoBody isLoggedIn={isLoggedIn} />
+          <PlacestogoBody isLoggedIn={isLoggedIn} places={places} />
         </Route>
 
         <Route exact path="/register">

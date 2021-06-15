@@ -3,10 +3,9 @@ import { Link } from "react-router-dom"
 
 import { Button, Dropdown } from 'react-bootstrap'
 
-const Login = ({ login, isLoggedIn, setLoggedIn, username }) => {
+const Login = ({ login, isLoggedIn, setLoggedIn, username, mensaje }) => {
   const [client, setClient] = useState("")
   const [password, setPassword] = useState("")
-
   const logout = () => {
     if (isLoggedIn) {
       setLoggedIn(false)
@@ -15,7 +14,7 @@ const Login = ({ login, isLoggedIn, setLoggedIn, username }) => {
     }
   }
 
-  if (isLoggedIn) {
+  if (isLoggedIn && username.admin === undefined) {
     return (
       <>
         <div className="Login">
@@ -33,6 +32,25 @@ const Login = ({ login, isLoggedIn, setLoggedIn, username }) => {
         </div>
       </>
     )
+  } else if (isLoggedIn && username.admin) {
+    return (
+      <>
+        <div className="Login">
+          <Dropdown>
+            <Dropdown.Toggle variant="Primary" id="dropdown-basic">
+              Henlo {username.username}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item><Link to="/cart" className="linkNoDecoration">asdasasda</Link></Dropdown.Item>
+              <Dropdown.Item><Link to="/cart" className="linkNoDecoration">Cart</Link></Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      </>
+    )
   } else {
     return (
       <>
@@ -41,6 +59,9 @@ const Login = ({ login, isLoggedIn, setLoggedIn, username }) => {
           <div>
             <input type="text" value={client} onChange={(e) => setClient(e.target.value)} />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div>
+            <p>{mensaje}</p>
           </div>
 
           <div>

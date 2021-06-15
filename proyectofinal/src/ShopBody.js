@@ -1,37 +1,25 @@
-import { useState, useEffect, Link } from "react"
+import { Link } from "react-router-dom"
 
 import { Card } from "react-bootstrap"
-//<Link to={`/shop/${item._id}`}>{item.productName}</Link>
 
-const ShopBody = () => {
-    const [shopItems, setShopItems] = useState([])
-
-    useEffect(() => {
-        fetch("/shop")
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res)
-                setShopItems(res)
-            })
-    }, [])
-
-    const showShopItems = shopItems.map((item) => {
-        console.log(item._id)
+const ShopBody = (props) => {
+    const showShopItems = props.shopItems.map((item) => {
         return (
-            <div>
-
-                <Card style={{ width: '18rem' }} >
-                    <Card.Body>
-                        <Card.Title>
-                            {item.productName}
-                        </Card.Title>
-                    </Card.Body>
-                    <Card.Img variant="top" src={item.productImg} width="18rem" />
-                </Card>
-
-            </div>
+          <div>
+            <Link to={`/shop/${item._id}`}>
+              <Card style={{ width: '18rem' }} >
+                <Card.Body>
+                  <Card.Title>
+                    {item.productName}
+                  </Card.Title>
+                </Card.Body>
+                <Card.Img variant="top" src={item.productImg} width="18rem" />
+              </Card>
+            </Link>
+          </div>
         )
-    })
+      })
+
     return (
         <div className="Shop">
             <div>
