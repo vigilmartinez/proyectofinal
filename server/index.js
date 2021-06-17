@@ -143,6 +143,7 @@ app.get("/sales", (req, res) => {
 
 //-------------rutas post-------------
 app.post("/sales", (req, res) => {
+
     if (req.body.cart.length === 1) {
         db.collection("sales").insertOne(
             req.body.cart[0],
@@ -156,6 +157,26 @@ app.post("/sales", (req, res) => {
     } else {
         db.collection("sales").insertMany(
             req.body.cart,
+            (err, info) => {
+                if (err != null) {
+                    res.send({ err, message: "Unable to Save" })
+                } else {
+                    res.send({ message: "Saved Correctly" })
+                }
+            })
+    }
+});
+
+
+//-------------rutas put-------------
+app.put("/sales", (req, res) => {
+    for (let i = 0; i < req.body.cart.length; i++) {
+        const product = req.body.cart[i]
+        const newSale = parseInt(req.body.cart[i].productSales++)
+        const newStock = parseInt(req.body.cart[i].productStock--)
+        console.log(product)
+        db.collection("sales").updateMany(
+            { product }, { productSales: newSale, productStock: newStock },
             (err, info) => {
                 if (err != null) {
                     res.send({ err, message: "Unable to Save" })

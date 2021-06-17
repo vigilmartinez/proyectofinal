@@ -59,38 +59,62 @@ function App() {
 
 
 
-  //--------Shop--------
-  const [shopItems, setShopItems] = useState([])
-
-  useEffect(() => {
-    fetch("/shop")
-      .then((res) => res.json())
-      .then((res) => {
-        setShopItems(res)
-      })
-  }, [])
-
-
-
   //--------Cart--------
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
 
-  const addtocart = (item) => {
-    setCart([...cart, item[0]]);
+  const addtocart = (item, cuantity) => {
+    let found = false
+    let index
+    let objeto = item
+
+
+    const array = cart.slice()
+
+    objeto.cantidad = cuantity
+    for (let i = 0; i < array.length; i++) {
+      if (array[i]._id === item._id) {
+        found = true
+        index = i
+        break
+      }
+    }
+    if (found) {
+      array[index].cantidad += cuantity
+    } else {
+      array.push(item)
+    }
+    setCart(array)
   }
 
-  const buy = (cart) => {
-    fetch("/sales", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ cart })
+  const removefromcart = (item) => {
+    const array = cart.filter((product) => {
+      if (item.productName !== product.productName) {
+        return true
+      } else {
+        return false
+      }
     })
+    setCart(array)
+  }
+
+
+
+  const buy = (cart) => {
+    fetch("/sales")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
-        setCart([])
+        fetch("/sales", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cart })
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+            setCart([])
+          })
       })
   }
 
@@ -109,7 +133,7 @@ function App() {
   }, [])
 
 
-
+  console.log(cart)
   return (
     <>
       <BrowserRouter>
@@ -123,14 +147,14 @@ function App() {
         </Route>
 
         <Route exact path="/shop">
-          <ShopBody isLoggedIn={isLoggedIn} shopItems={shopItems} />
+          <ShopBody isLoggedIn={isLoggedIn} />
         </Route>
         <Route exact path="/shop/:id" >
-          <ShopItemBody isLoggedIn={isLoggedIn} shopItems={shopItems} addtocart={addtocart} />
+          <ShopItemBody isLoggedIn={isLoggedIn} addtocart={addtocart} />
         </Route>
 
         <Route exact path="/cart">
-          <CartBody isLoggedIn={isLoggedIn} cart={cart} buy={buy} />
+          <CartBody isLoggedIn={isLoggedIn} cart={cart} buy={buy} removefromcart={removefromcart} />
         </Route>
 
         <Route exact path="/placestogo">

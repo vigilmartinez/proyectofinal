@@ -4,8 +4,32 @@ import { useParams } from "react-router-dom"
 import { Button } from 'react-bootstrap'
 
 const ShopItemBody = ({ shopItems, addtocart }) => {
-    const [item, setItem] = useState([{}]);
-    let { id } = useParams(shopItems._id);
+    const [cuantity, setCuantity] = useState(1);
+    const [item, setItem] = useState([]);
+
+    let { id } = useParams();
+
+    const subs = () => {
+        if (cuantity > 1) {
+            setCuantity(cuantity - 1)
+        }
+    }
+
+    const add = () => {
+        setCuantity(cuantity + 1)
+    }
+
+
+
+    const added = () => {
+        return (
+            <div>
+                <p>Added Correctly</p>
+            </div>
+        )
+    }
+
+
 
     useEffect(() => {
         fetch(`/shop/${id}`)
@@ -16,13 +40,32 @@ const ShopItemBody = ({ shopItems, addtocart }) => {
             })
     }, [id]);
 
+
+
     return (
         <div>
-            <h1>{item[0].productName}</h1>
-            <img src={item[0].productImg} alt="" />
-            <p>{item[0].productDescription}</p>
-            <p>{item[0].productPrize}€</p>
-            <Button variant="primary" size="sm" onClick={() => { addtocart(item) }}>Add to Cart</Button>
+            <div>
+                {item.map(item => {
+                    return (
+                        <>
+                            <h1>{item.productName}</h1>
+                            <img src={item.productImg} alt="" />
+                            <p>{item.productDescription}</p>
+                            <p>{item.productPrize}€</p>
+                        </>
+                    )
+                })}
+
+            </div>
+            <div>
+                <Button variant="primary" size="sm" onClick={() => { subs() }}>-</Button>
+                <p>{cuantity}</p>
+                <Button variant="primary" size="sm" onClick={() => { add() }}>+</Button>
+            </div>
+            <div>
+                <Button variant="primary" size="bg" onClick={() => { addtocart(item[0], cuantity) }}>Add to Cart</Button>
+            </div>
+            {added()}
         </div>
     )
 };

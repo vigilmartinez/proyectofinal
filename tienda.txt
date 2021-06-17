@@ -1,0 +1,98 @@
+{
+    "productDescription": "Hear what's on the other side of the veil with the state-of-the-art PSB-7",
+    "productImg": "https://i.ibb.co/qDgDWBw/spiritbox-psb7.jpg",
+    "productName": "PSB-7",
+    "productPrize": "29.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "PSB-7's big brother. Includes all of it's previous iteration characteristics, plus a thermometer and an additional radio channel",
+    "productImg": "https://i.ibb.co/7yYKLfT/spiritbox-psb11.jpg",
+    "productName": "PSB-11",
+    "productPrize": "49.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Track those sneaky ghosts with the help of the EMF detector. Capable of detecting ranges from 50 Hz to 20.000 Hz",
+    "productImg": "https://i.ibb.co/dcTnpRv/emf-detector.jpg",
+    "productName": "EMF Detector (white)",
+    "productPrize": "19.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Track those sneaky ghosts with the help of the EMF detector. Capable of detecting ranges from 50 Hz to 20.000 Hz",
+    "productImg": "https://i.ibb.co/W5403j6/emf-detector-black.jpg",
+    "productName": "EMF Detector (black)",
+    "productPrize": "19.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "No need to be feeling your way in the dark thanks to this compact flashlight. With its 9 LEDs and long-lasting battery, you can rest assured no room will be too dark. It even fits in your pocket! (Batteries not included)",
+    "productImg": "https://i.ibb.co/4mP85sG/flashlight-smol.jpg",
+    "productName": "Flashlight (small)",
+    "productPrize": "4.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Going to a dark, open place? Better not miss out on this flashlight, then. Carrying a Cree XM-L2 (U2) Led, and rechargeable battery, it dishes out 1000 lumens up to a 290 meters.",
+    "productImg": "https://i.ibb.co/NCv2KsP/flashlight-strong.jpg",
+    "productName": "Flashlight (Large)",
+    "productPrize": "122.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "See what can't be seen by the naked eye whith this pocket-sized UV Flashlight. No ghostly handprints will escape your sight! Equipped whith 9 UV light LEDs, potent enough to see what you were looking for, and compact enough that fits right into your pocket (batteries not included).",
+    "productImg": "https://i.ibb.co/4JvVCBN/uvflashlight-smol.jpg",
+    "productName": "UV Flashlight (small)",
+    "productPrize": "10.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "See what can't be seen by the naked eye whith this UV Flashlight. No ghostly handprints will escape your sight! The standard-issue UV flashlight every ghost hunter needs in their gear(batteries not included).",
+    "productImg": "https://i.ibb.co/bRPSW85/uvflashlight-med.jpg",
+    "productName": "UV Flashlight ",
+    "productPrize": "30.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "No ghostly handprints will be safe from your sight with this humongous flashlight. Rechargeable battery.",
+    "productImg": "https://i.ibb.co/WFp8sDF/uvflashlight-large.jpg",
+    "productName": "UV Flashlight (Large)",
+    "productPrize": "150.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Hear even the faintest of sounds with the help of this parabolic microphone. No footsteps, scrapings o r breaths will escape your attention thanks to the state-of-the-art technology used to capture the sounds (batteries not included).",
+    "productImg": "https://i.ibb.co/FmnZjBb/paramic.jpg",
+    "productName": "Paramic",
+    "productPrize": "50.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "No Ghost will ever be able to catch up with you with these premium Smudge Sticks. Just light 'em up and relax.",
+    "productImg": "https://i.ibb.co/Gs9S2MF/smudgestick-sage.jpg",
+    "productName": "Smudge Sticks",
+    "productPrize": "2.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Nothing spooks the spooker more than a crucifix. Avoid getting hunted with this sturdy oak wood crucifix.",
+    "productImg": "https://i.ibb.co/2PdhnfC/crucifix.jpg",
+    "productName": "Crucifix",
+    "productPrize": "6.66",
+    "productStock": "50"
+},
+{
+    "productDescription": "Ghosts are making the use of electrical apparati a nightmare? Why not use something more traditional? Candles are the solution. No electricity, no shortouts. But be careful, or a ghost may blow them out before you realize it.",
+    "productImg": "https://i.ibb.co/419hLxG/candle.jpg",
+    "productName": "Candle (white)",
+    "productPrize": "1.99",
+    "productStock": "50"
+},
+{
+    "productDescription": "Is communication with the otherside proving to be more complicated than you anticipated? Not anymore, thanks to the Ouija Board communication will be as smooth as if you were talking through your phone. But remember to alway to say good-bye after you're done, we woldn't want to take a new friend home, would we?",
+    "productImg": "https://i.ibb.co/3yfSsQQ/luigiboard.jpg",
+    "productName": "Ouija Board",
+    "productPrize": "30.99",
+    "productStock": "50"
+}
