@@ -1,3 +1,5 @@
+import "./Placestogo.css";
+
 const PlacestogoBody = (places) => {
     const showPlaces = places.places.map((place) => {
         return (
@@ -23,9 +25,7 @@ const PlacestogoBody = (places) => {
 
     return (
         <div className="Places">
-            <div className="shopCards">
                 {showPlaces}
-            </div>
         </div>
     )
 }

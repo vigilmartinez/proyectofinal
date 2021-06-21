@@ -3,14 +3,21 @@ import { Link } from "react-router-dom"
 
 import { Button, Dropdown } from 'react-bootstrap'
 
-const Login = ({ login, isLoggedIn, setLoggedIn, username, mensaje }) => {
+import "./Login.css"
+
+const Login = ({ login, isLoggedIn, setLoggedIn, username, mensaje, setMensaje, setDuplicate }) => {
   const [client, setClient] = useState("")
   const [password, setPassword] = useState("")
+
   const logout = () => {
     if (isLoggedIn) {
+      localStorage.removeItem("user")
+      localStorage.removeItem("loggedIn")
       setLoggedIn(false)
       setClient("")
       setPassword("")
+      setDuplicate(false)
+      setMensaje("")
     }
   }
 
@@ -56,29 +63,35 @@ const Login = ({ login, isLoggedIn, setLoggedIn, username, mensaje }) => {
       <>
         <div className="Login">
 
-          <div>
-            <input type="text" value={client} onChange={(e) => setClient(e.target.value)} />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </div>
+
           <div>
             <p>{mensaje}</p>
           </div>
 
           <div>
-            <Button variant="link" size="sm" onClick={() => { login(client, password) }} >Login</Button>
+            <input type="text" value={client} onChange={(e) => setClient(e.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
 
-          <div>
-            |
+
+          <div className="lognreg">
+            <div>
+              <Button variant="link" size="sm" onClick={() => { login(client, password) }} >Login</Button>
+            </div>
+
+            <div>
+              |
+            </div>
+
+            <div>
+              <Button variant="link" size="sm">
+                <Link to="/register" >
+                  Register
+                </Link>
+              </Button>
+            </div>
           </div>
 
-          <div>
-            <Button variant="link" size="sm">
-              <Link to="/register" >
-                Register
-              </Link>
-            </Button>
-          </div>
 
         </div>
       </ >

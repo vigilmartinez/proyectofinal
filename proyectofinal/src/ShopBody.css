@@ -1,0 +1,52 @@
+.Shop {
+    /* background-image: url("./imgs/back3.png"); */
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+
+.shopCard {
+    background-color: rgb(60, 61, 68);
+
+    width: 18rem;
+
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shopCard:hover{
+    background-color: rgb(105, 107, 119);
+}
+
+
+.cardText{
+    color: rgb(210, 213, 235);
+    text-align: center;
+    text-decoration: none;
+}
+
+.cardText:hover{
+    color: rgb(210, 213, 235);
+}
+
+
+.shopCards {
+    margin-left: 5%;
+    margin-right: 5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+@media (max-width:400px){
+    .shopCards{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+}

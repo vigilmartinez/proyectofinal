@@ -14,11 +14,16 @@ import PlacestogoBody from "./PlacestogoBody"
 import Register from "./Register"
 
 function App() {
-  //--------Login & Register--------
-  const [user, setUser] = useState(null);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [mensaje, setMensaje] = useState("");
 
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
+  const [isLoggedIn, setLoggedIn] = useState(() => JSON.parse(localStorage.getItem("loggedIn")) || false);
+  const [mensaje, setMensaje] = useState("");
+  const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
+  const [added, setAdded] = useState(false);
+  const [places, setPlaces] = useState([]);
+  const [duplicate, setDuplicate] = useState();
+
+  //--------Login & Register--------
   const login = (username, password) => {
     if (username !== "") {
       fetch("/login", {
@@ -31,6 +36,8 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           if (res.error === false) {
+            localStorage.setItem("user", JSON.stringify(res.username))
+            localStorage.setItem("loggedIn", JSON.stringify(true))
             setUser(res.username)
             setLoggedIn(true)
           } else {
@@ -52,7 +59,12 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           console.log(res.message)
-          login(username, password)
+          if (!res.duplicate) {
+            login(username, password)
+            setDuplicate(false)
+          } else {
+            setDuplicate(res.duplicate)
+          }
         })
     }
   }
@@ -60,14 +72,14 @@ function App() {
 
 
   //--------Cart--------
-  const [cart, setCart] = useState([]);
+
 
   const addtocart = (item, cuantity) => {
     let found = false
     let index
     let objeto = item
 
-
+    console.log(cuantity)
     const array = cart.slice()
 
     objeto.cantidad = cuantity
@@ -78,13 +90,17 @@ function App() {
         break
       }
     }
+
     if (found) {
       array[index].cantidad += cuantity
     } else {
       array.push(item)
     }
+    localStorage.setItem("cart", JSON.stringify(array))
+    setAdded(true)
     setCart(array)
   }
+
 
   const removefromcart = (item) => {
     const array = cart.filter((product) => {
@@ -95,8 +111,8 @@ function App() {
       }
     })
     setCart(array)
+    localStorage.setItem("cart", JSON.stringify(array))
   }
-
 
 
   const buy = (cart) => {
@@ -112,7 +128,6 @@ function App() {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res)
             setCart([])
           })
       })
@@ -120,9 +135,8 @@ function App() {
 
 
 
-
   //--------Places--------
-  const [places, setPlaces] = useState([])
+
 
   useEffect(() => {
     fetch("/placestogo")
@@ -133,12 +147,11 @@ function App() {
   }, [])
 
 
-  console.log(cart)
   return (
-    <>
+    <div className="app">
       <BrowserRouter>
 
-        <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} mensaje={mensaje} />
+        <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} mensaje={mensaje} setMensaje={setMensaje} setDuplicate={setDuplicate} />
 
         <Header isLoggedIn={isLoggedIn} />
 
@@ -147,14 +160,14 @@ function App() {
         </Route>
 
         <Route exact path="/shop">
-          <ShopBody isLoggedIn={isLoggedIn} />
+          <ShopBody isLoggedIn={isLoggedIn} setAdded={setAdded} />
         </Route>
         <Route exact path="/shop/:id" >
-          <ShopItemBody isLoggedIn={isLoggedIn} addtocart={addtocart} />
+          <ShopItemBody isLoggedIn={isLoggedIn} addtocart={addtocart} added={added} setAdded={setAdded} />
         </Route>
 
         <Route exact path="/cart">
-          <CartBody isLoggedIn={isLoggedIn} cart={cart} buy={buy} removefromcart={removefromcart} />
+          <CartBody isLoggedIn={isLoggedIn} cart={cart} setCart={setCart} buy={buy} removefromcart={removefromcart} />
         </Route>
 
         <Route exact path="/placestogo">
@@ -162,13 +175,13 @@ function App() {
         </Route>
 
         <Route exact path="/register">
-          <Register register={register} isLoggedIn={isLoggedIn} />
+          <Register register={register} isLoggedIn={isLoggedIn} duplicate={duplicate} />
         </Route>
 
         <Footer />
 
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,55 @@
+.shopItemBody{
+    color: rgb(210, 213, 235);
+    /* background-image: url("./imgs/back3.png"); */
+}
+
+.shopItem {
+    display: flex;
+    justify-content: left;
+    margin: 3%;
+}
+
+.shopItemText {
+    margin: 3rem;
+}
+
+.shopItemButton{
+
+    width: 3rem;
+    height: 2rem;
+    background-color: rgb(60, 61, 68);
+    border-color: rgb(60, 61, 68);
+
+    color: rgb(210, 213, 235);
+}
+
+.shopItemButton:hover {
+    background-color: rgb(210, 213, 235);
+    border-color: rgb(210, 213, 235);
+
+    color: rgb(60, 61, 68);
+}
+
+.shopItemCuantity {
+    text-align: center;
+    width: 10%;
+}
+
+
+.shopItemBuyButton{
+    background-color: rgb(60, 61, 68);
+    border-color: rgb(60, 61, 68);
+
+    color: rgb(210, 213, 235);
+}
+
+.shopItemBuyButton:hover {
+    background-color: rgb(210, 213, 235);
+    border-color: rgb(210, 213, 235);
+
+    color: rgb(60, 61, 68);
+}
+
+.plusminus{
+    display: flex;
+}

@@ -52,7 +52,7 @@ app.post("/register", (req, res) => {
                             }
                         })
                 } else {
-                    res.send({ message: "Username exists" })
+                    res.send({ message: "Username exists", duplicate: true })
                 }
             }
         })
@@ -142,63 +142,66 @@ app.get("/sales", (req, res) => {
 });
 
 //-------------rutas post-------------
+
 app.post("/sales", (req, res) => {
+    const cart = req.body.cart
+    const aux = [];                                                         //Creamos un array vacío, donde meteremos tantos false como elementos haya en la cesta
 
-    if (req.body.cart.length === 1) {
-        db.collection("sales").insertOne(
-            req.body.cart[0],
-            (err, info) => {
-                if (err != null) {
-                    res.send({ err, message: "Unable to Save" })
-                } else {
-                    res.send({ message: "Saved Correctly" })
-                }
-            })
-    } else {
-        db.collection("sales").insertMany(
-            req.body.cart,
-            (err, info) => {
-                if (err != null) {
-                    res.send({ err, message: "Unable to Save" })
-                } else {
-                    res.send({ message: "Saved Correctly" })
-                }
-            })
-    }
-});
-
-
-//-------------rutas put-------------
-app.put("/sales", (req, res) => {
-    for (let i = 0; i < req.body.cart.length; i++) {
-        const product = req.body.cart[i]
-        const newSale = parseInt(req.body.cart[i].productSales++)
-        const newStock = parseInt(req.body.cart[i].productStock--)
-        console.log(product)
-        db.collection("sales").updateMany(
-            { product }, { productSales: newSale, productStock: newStock },
-            (err, info) => {
-                if (err != null) {
-                    res.send({ err, message: "Unable to Save" })
-                } else {
-                    res.send({ message: "Saved Correctly" })
-                }
-            })
-    }
-});
-
-/* app.post("/sales/various", (req, res) => {
-
-    db.collection("sales").insertMany(
-        req.body.cart,
-        (err, info) => {
-            if (err != null) {
-                res.send({ err, message: "Unable to Save" })
+    db.collection("sales").find().toArray(function (err, sales) {
+        if (err != null) {
+            res.send(err);
+        } else {
+            if (sales.length === 0 && cart.length > 1) {
+                db.collection("sales").insertMany(cart, (err, info) => {
+                    if (err != null) {
+                        res.send(err)
+                    } else {
+                        res.send(info)
+                    }
+                })
+            } else if (sales.length === 0 && cart.length === 1) {
+                db.collection("sales").insertOne(cart[0], (err, info) => {
+                    if (err != null) {
+                        res.send(err)
+                    } else {
+                        res.send(info)
+                    }
+                })
             } else {
-                res.send({ message: "Saved Correctly" })
+                console.log(cart)
+                for (let i = 0; i < cart.length; i++) {                         //recorremos el array de la cesta para meter tantos false en el array aux como elementos haya en el array cesta
+                    aux.push(false);
+                }
+                for (let i = 0; i < sales.length; i++) {                        //el primer bucle recorre el array de la base de datos
+                    for (let j = 0; j < cart.length; j++) {                     //el segundo la cesta
+                        if (sales[i].productName === cart[j].productName) {     //si el nombre del elemento del array de la base de datos es igual que el del elemento del array de la cesta
+                            sales[i].cantidad += cart[j].cantidad;          //le sumamos la cantidad del array2 al array1
+                            aux[j] = true;                                      //cambiamos el elemento del array aux a true (con el indice j que nos ha dado true el if)
+                        }
+                    }
+                }
+                for (let i = 0; i < aux.length; i++) {                          //una vez hemos sumado los que ya existian y hemos puesto el valor true a sus indices en aux, recorremos el array aux
+                    if (aux[i] === false) {                                     //si el indice en el que nos encontramos es false significa que no existe en el array de la base de datos, por lo tanto hay que hacer un push
+                        sales.push(cart[i]);                                    //se hace el push de ese indice del array 2 al array1
+                    }
+                }
+                db.collection("sales").remove((err, info)=> {
+                    if(err!= null){
+                        res.send(err)
+                    }else{
+                        db.collection("sales").insertMany(sales, (err, info) => {
+                            if (err != null) {
+                                res.send(err)
+                            } else {
+                                res.send(info)
+                            }
+                        })
+                    }
+                })
             }
-        })
-}); */
+        }
+    });
+});
 
 
 

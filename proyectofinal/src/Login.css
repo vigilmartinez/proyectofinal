@@ -1,0 +1,9 @@
+.Login {
+    display: flex;
+    text-align: center;
+    background-color: #BFB8AA;
+  }
+
+  .lognreg {
+      display: flex;
+  }

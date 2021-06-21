@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 
 import { Card } from "react-bootstrap"
 
-const ShopBody = () => {
-  const [shopItems, setShopItems] = useState([])
+import "./ShopBody.css"
 
+const ShopBody = ({ setAdded }) => {
+  const [shopItems, setShopItems] = useState([])
+  setAdded(false)
+  
   useEffect(() => {
     fetch("/shop")
       .then((res) => res.json())
@@ -16,11 +19,11 @@ const ShopBody = () => {
 
   const showShopItems = shopItems.map((item) => {
     return (
-      <div>
-        <Link to={`/shop/${item._id}`}>
-          <Card style={{ width: '18rem' }} >
+      <div >
+        <Link to={`/shop/${item._id}`} className="cardText">
+          <Card className="shopCard">
             <Card.Body>
-              <Card.Title>
+              <Card.Title >
                 {item.productName}
               </Card.Title>
             </Card.Body>
