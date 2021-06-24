@@ -1,0 +1,9 @@
+.Footer {
+  padding-top: 3vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.aboutFooter{
+  display: inline;
+}

@@ -1,4 +1,16 @@
 .Places {
-    display: inline;
-    color: rgb(210, 213, 235);;
+    display: flex;
+    justify-content: center;
+    color: rgb(210, 213, 235);
+    text-align: center;
+}
+
+.placesItem{
+    padding-top: 7vh;
+    max-width: 30vw;
+}
+
+.placesImg {
+    padding-bottom: 5vh;
+    max-width: 30vw;
 }

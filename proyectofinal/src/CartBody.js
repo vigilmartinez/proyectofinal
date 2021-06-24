@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react"
+import { Redirect } from "react-router-dom"
 
 import { Button } from 'react-bootstrap';
 
 import "./CartBody.css";
 
-const CartBody = ({ cart, buy, removefromcart }) => {
+const CartBody = ({ cart, buy, bought, setBought, removefromcart }) => {
     const [total, setTotal] = useState(0);
+
+    setBought(false)
+
 
     useEffect(() => {
         if (cart.length !== 0) {
@@ -20,6 +24,11 @@ const CartBody = ({ cart, buy, removefromcart }) => {
             setTotal(precioTotal)
         }
     }, [cart])
+
+
+    if (bought) {
+        return <Redirect to="/purchase" />
+    }
 
     const showCart = cart.map((item) => {
         return (
@@ -42,8 +51,8 @@ const CartBody = ({ cart, buy, removefromcart }) => {
 
     if (cart.length === 0) {
         return (
-            <div className="cartItemBody">
-                <p>Your cart is empty</p>
+            <div className="cartEmpty">
+                <h1>Your cart is empty</h1>
             </div>
         )
     } else {
@@ -52,8 +61,8 @@ const CartBody = ({ cart, buy, removefromcart }) => {
                 <div>
                     {showCart}
                 </div>
-                <div>
-                    <p>Total: {total}€</p>
+                <div className="cartTotal">
+                    <h3>Total: {total}€</h3>
                 </div>
                 <Button variant="contained" className="cartItemBuyButton" size="bg" onClick={() => { buy(cart) }}>Buy</Button>
             </div>

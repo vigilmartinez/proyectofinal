@@ -10,18 +10,36 @@ import HomeBody from "./HomeBody"
 import ShopBody from "./ShopBody"
 import ShopItemBody from "./ShopItemBody"
 import CartBody from "./CartBody"
+import CartBodyBought from "./CartBodyBought"
 import PlacestogoBody from "./PlacestogoBody"
 import Register from "./Register"
+import Registered from "./Registered"
+import Stats from "./Stats"
 
 function App() {
 
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
   const [isLoggedIn, setLoggedIn] = useState(() => JSON.parse(localStorage.getItem("loggedIn")) || false);
+  const [registered, setRegistered] = useState(false);
   const [mensaje, setMensaje] = useState("");
+
+  const [shopItems, setShopItems] = useState([]);
+
   const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
+  const [bought, setBought] = useState(false);
+
   const [added, setAdded] = useState(false);
+  
   const [places, setPlaces] = useState([]);
   const [duplicate, setDuplicate] = useState();
+  const [randomImg, setRandomImg] = useState(0)
+  const [randomName, setRandomName] = useState("")
+
+  const [url, setUrl] = useState(window.location.href)
+
+  useEffect(() => {
+    setUrl(window.location.href)
+  }, [])
 
   //--------Login & Register--------
   const login = (username, password) => {
@@ -62,6 +80,7 @@ function App() {
           if (!res.duplicate) {
             login(username, password)
             setDuplicate(false)
+            setRegistered(true)
           } else {
             setDuplicate(res.duplicate)
           }
@@ -69,6 +88,16 @@ function App() {
     }
   }
 
+
+  //--------Shop--------
+
+  useEffect(() => {
+    fetch("/shop")
+      .then((res) => res.json())
+      .then((res) => {
+        setShopItems(res)
+      })
+  }, [])
 
 
   //--------Cart--------
@@ -129,6 +158,7 @@ function App() {
           .then((res) => res.json())
           .then((res) => {
             setCart([])
+            setBought(true)
           })
       })
   }
@@ -142,46 +172,81 @@ function App() {
     fetch("/placestogo")
       .then((res) => res.json())
       .then((res) => {
+        const random = Math.floor(Math.random() * (res.length - 0)) + 0
         setPlaces(res)
+        setRandomImg(res[random].placeImg)
+        setRandomName(res[random].placeTitle)
       })
   }, [])
 
 
+
+
   return (
-    <div className="app">
-      <BrowserRouter>
+    <div className="appBackground">
+      <div className="app">
 
-        <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} mensaje={mensaje} setMensaje={setMensaje} setDuplicate={setDuplicate} />
+        <BrowserRouter>
 
-        <Header isLoggedIn={isLoggedIn} />
+          <div className="appHeader">
+            <div className="appItems">
+              <Login login={login} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} username={user} mensaje={mensaje} setMensaje={setMensaje} setDuplicate={setDuplicate} />
 
-        <Route exact path="/home">
-          <HomeBody isLoggedIn={isLoggedIn} username={user} />
-        </Route>
+              <Header isLoggedIn={isLoggedIn} url={url} />
+            </div>
+          </div>
 
-        <Route exact path="/shop">
-          <ShopBody isLoggedIn={isLoggedIn} setAdded={setAdded} />
-        </Route>
-        <Route exact path="/shop/:id" >
-          <ShopItemBody isLoggedIn={isLoggedIn} addtocart={addtocart} added={added} setAdded={setAdded} />
-        </Route>
+          <div className="appBody">
+            <div className="appItems">
 
-        <Route exact path="/cart">
-          <CartBody isLoggedIn={isLoggedIn} cart={cart} setCart={setCart} buy={buy} removefromcart={removefromcart} />
-        </Route>
+              <Route exact path="/">
+                <HomeBody isLoggedIn={isLoggedIn} username={user} shopItems={shopItems} randomImg={randomImg} randomName={randomName} />
+              </Route>
 
-        <Route exact path="/placestogo">
-          <PlacestogoBody isLoggedIn={isLoggedIn} places={places} />
-        </Route>
+              <Route exact path="/shop">
+                <ShopBody isLoggedIn={isLoggedIn} setAdded={setAdded} shopItems={shopItems} />
+              </Route>
+              <Route exact path="/shop/:id" >
+                <ShopItemBody isLoggedIn={isLoggedIn} addtocart={addtocart} added={added} setAdded={setAdded} />
+              </Route>
 
-        <Route exact path="/register">
-          <Register register={register} isLoggedIn={isLoggedIn} duplicate={duplicate} />
-        </Route>
+              <Route exact path="/cart">
+                <CartBody isLoggedIn={isLoggedIn} cart={cart} setCart={setCart} buy={buy} bought={bought} setBought={setBought} removefromcart={removefromcart} />
+              </Route>
+              <Route exact path="/purchase">
+                <CartBodyBought isLoggedIn={isLoggedIn} cart={cart} setCart={setCart} buy={buy} removefromcart={removefromcart} />
+              </Route>
 
-        <Footer />
+              <Route exact path="/stats">
+                <Stats isLoggedIn={isLoggedIn} cart={cart} setCart={setCart} buy={buy} removefromcart={removefromcart} />
+              </Route>
 
-      </BrowserRouter>
+              <Route exact path="/placestogo">
+                <PlacestogoBody isLoggedIn={isLoggedIn} places={places} />
+              </Route>
+
+              <Route exact path="/register">
+                <Register register={register} registered={registered} setRegistered={setRegistered} isLoggedIn={isLoggedIn} duplicate={duplicate} randomImg={randomImg} randomName={randomName} />
+              </Route>
+
+              <Route exact path="/registered">
+                <Registered register={register} isLoggedIn={isLoggedIn} duplicate={duplicate} randomImg={randomImg} randomName={randomName} />
+              </Route>
+
+            </div>
+          </div>
+
+
+          <div className="appFooter">
+            <div className="appItems">
+              <Footer />
+            </div>
+          </div>
+
+        </BrowserRouter>
+      </div>
     </div>
+
   );
 }
 

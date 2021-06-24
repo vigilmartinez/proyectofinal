@@ -1,9 +1,65 @@
 .Login {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 60vw;
     display: flex;
-    text-align: center;
-    background-color: #BFB8AA;
+    justify-content: space-between;
+    color: rgb(33, 35, 37);
   }
 
-  .lognreg {
-      display: flex;
+  .logo{
+    width: 20vw;
   }
+
+.dropdownToggle {
+    background-color: rgb(33, 35, 37);
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    height: 3rem;
+    width: 10rem;
+}
+
+.dropdownToggle:hover {
+    background-color: rgb(24, 124, 66);
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    height: 3rem;
+    width: 10rem;
+}
+
+.dropdownToggle:checked {
+    background-color: rgb(117, 118, 131);
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    height: 3rem;
+    width: 10rem;
+}
+
+.dropdownText {
+    height: min-content;
+}
+
+.linkNoDecorationLogin{
+    color: rgb(33, 35, 37);
+    text-decoration: none;
+}
+
+.loginInputs {
+    height: min-content;
+    display: flex;
+}
+
+.lognreg {
+    display: flex;
+    justify-content: space-between;
+}
+
+.msgLogin{
+    margin-right: 3%;
+}

@@ -1,0 +1,36 @@
+.homeBody {
+    color: rgb(210, 213, 235);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.homeTitle {
+    padding-top: 3vh;
+}
+.homeImg {
+    padding-top: 7vh;
+    max-width: 40vw;
+}
+
+.homeImgText {
+    text-align: inherit;
+    font-style: italic;
+}
+
+.homeText {
+    padding-top: 7vh;
+    max-width: 40vw;
+}
+
+@media (max-width:400px){
+    .imgHomeBody {
+        width: 10rem;
+        margin-left: 10%;
+    }
+    .carouselHomeBody {
+        width: 120%;
+        display: flex;
+        justify-content: space-around;
+    }
+}

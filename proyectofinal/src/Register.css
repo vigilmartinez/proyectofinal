@@ -1,3 +1,29 @@
 .Register {
-    width: 20%;
+    color: rgb(210, 213, 235);
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10vh;
   }
+
+.registerForm {
+  padding-top: 2vh;
+  color: rgb(210, 213, 235);
+  width: 20vw;
+}
+
+.registerUsername {
+  padding-top: 2vh
+}
+
+.registerButton {
+  padding-top: 2vh;
+}
+
+.registerImg {
+  max-width: 30vw;
+}
+
+.registerImgText {
+  text-align: inherit;
+  font-style: italic;
+}

@@ -1,4 +1,26 @@
 .Header {
-    text-decoration: none;
-    background-color: #403638;
+  color: rgb(33, 35, 37);
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30vw;
+
   }
+
+.linkNoDecorationHeader{
+  color: rgb(33, 35, 37);
+  text-decoration: none;
+}
+
+.linkNoDecorationHeader:hover{
+  color: rgb(33, 35, 37);
+  text-decoration: none;
+}
+
+.linkNoDecorationHeader:visited{
+  background-color:  rgb(117, 118, 131);
+  text-decoration: none;
+}
+
+.underscore{
+  text-decoration: underline;
+}

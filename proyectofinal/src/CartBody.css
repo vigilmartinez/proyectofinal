@@ -1,7 +1,15 @@
 .cartItemBody{
     color: rgb(210, 213, 235);
     margin: 3%;
+    padding-top: 3vh;
     /* background-image: url("./imgs/back3.png"); */
+}
+
+.cartEmpty {
+    color: rgb(210, 213, 235);
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10vh;
 }
 
 .cartItem {
@@ -46,4 +54,10 @@
     border-color: rgb(210, 213, 235);
 
     color: rgb(60, 61, 68);
+}
+
+.cartTotal {
+    padding-top: 10vh;
+    padding-bottom: 2vh;
+    color: rgb(210, 213, 235);
 }

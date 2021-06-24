@@ -1,7 +1,5 @@
 .Shop {
-    /* background-image: url("./imgs/back3.png"); */
-    background-repeat: no-repeat;
-    background-size:cover;
+    padding-top: 5vh;
 }
 
 
@@ -38,14 +36,14 @@
     margin-left: 5%;
     margin-right: 5%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 
 @media (max-width:400px){
     .shopCards{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
 

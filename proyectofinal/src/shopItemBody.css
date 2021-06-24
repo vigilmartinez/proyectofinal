@@ -1,4 +1,5 @@
 .shopItemBody{
+    padding-top: 3vh;
     color: rgb(210, 213, 235);
     /* background-image: url("./imgs/back3.png"); */
 }
@@ -52,4 +53,8 @@
 
 .plusminus{
     display: flex;
+}
+
+.shopItemAdded {
+    padding-top: 2vh;
 }

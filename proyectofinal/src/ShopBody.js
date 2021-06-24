@@ -1,21 +1,11 @@
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react";
 
 import { Card } from "react-bootstrap"
 
 import "./ShopBody.css"
 
-const ShopBody = ({ setAdded }) => {
-  const [shopItems, setShopItems] = useState([])
+const ShopBody = ({ shopItems, setAdded }) => {
   setAdded(false)
-  
-  useEffect(() => {
-    fetch("/shop")
-      .then((res) => res.json())
-      .then((res) => {
-        setShopItems(res)
-      })
-  }, [])
 
   const showShopItems = shopItems.map((item) => {
     return (
@@ -36,9 +26,6 @@ const ShopBody = ({ setAdded }) => {
 
   return (
     <div className="Shop">
-      <div>
-        <h1>Shop</h1>
-      </div>
       <div className="shopCards">
         {showShopItems}
       </div>

@@ -1,0 +1,14 @@
+.Stats{
+    color: rgb(210, 213, 235);
+    /* background-image: url("./imgs/back3.png"); */
+}
+
+.statsItem {
+    display: flex;
+    justify-content: left;
+    margin: 3%;
+}
+
+.statsItemText {
+    margin: 3rem;
+}
